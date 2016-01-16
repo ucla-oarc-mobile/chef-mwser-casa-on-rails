@@ -10,12 +10,11 @@ server {
   listen 443;
   ssl on;
   ssl_certificate /etc/ssl/certs/<%= @fqdn %>.crt;
-  ssl_certificate_key /etc/ssl/private/<%= @fqdn %> %>.key;
+  ssl_certificate_key /etc/ssl/private/<%= @fqdn %>.key;
   root <%= @path %>;
   index index.html;
   client_body_buffer_size 100m;
   client_max_body_size 100m;
-}
 
   location / {
    proxy_pass http://rails;
@@ -26,6 +25,7 @@ server {
    proxy_set_header X-Forwarded-Proto https;
    proxy_set_header X-Forwarded-Ssl on;
   }
+}
 
 ##REDIRECT ALL HTTP REQUESTS TO HTTPS##
 server {

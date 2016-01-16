@@ -4,7 +4,7 @@ maintainer_email 'technolengy@gmail.com'
 license 'Apache 2.0'
 description 'Installs/Configures ectg-casa-on-rails'
 long_description 'Installs/Configures ectg-casa-on-rails'
-version '0.1.0'
+version '0.1.1'
 
 depends 'casa-on-rails'
 depends 'elasticsearch'
