@@ -20,23 +20,7 @@
 chef_gem 'chef-vault'
 require 'chef-vault'
 
-# some basic package deps. only tested on rhel family.
-%w(tar java-1.7.0-openjdk git).each do |pkg|
-  package pkg
-end
-
-# install ES
-elasticsearch_user 'elasticsearch'
-elasticsearch_install 'elasticsearch' do
-  type :tarball
-  version '1.7.2'
-end
-elasticsearch_configure 'elasticsearch'
-elasticsearch_service 'elasticsearch'
-
-service 'elasticsearch' do # recipe above does *not* currently start the service
-  action :start
-end
+package 'git'
 
 # a few case-y things based on hostname
 unless node['fqdn'] == 'casa.m.ucla.edu'
@@ -143,4 +127,5 @@ casa_on_rails app_name do
   uuid '2663792f-0ae4-413f-94ef-bbf3fd0d7484'
   contact_name 'Rose Rocchio'
   contact_email 'rrocchio@oit.ucla.edu'
+  # assumes es is available at localhost
 end

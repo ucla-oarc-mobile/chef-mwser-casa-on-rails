@@ -3,7 +3,6 @@ source 'https://supermarket.chef.io'
 metadata
 
 cookbook 'casa-on-rails', git: 'https://github.com/ucla/chef-casa-on-rails.git'
-cookbook 'elasticsearch', '~> 1.0.0'
 cookbook 'mysql', '~> 6.0'
 cookbook 'ruby_rbenv', '~> 1.0'
 cookbook 'ruby_build'
