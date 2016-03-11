@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: ectg-casa-on-rails
+# Cookbook Name:: mwser-casa-on-rails
 # Recipe:: default
 #
 # Copyright (C) 2015 UC Regents

@@ -18,4 +18,4 @@ dns:
 
 suites:
   - name: default
-    run_list: ['ectg-casa-on-rails::default']
+    run_list: ['mwser-casa-on-rails::default']
