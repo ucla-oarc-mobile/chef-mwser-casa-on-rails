@@ -23,11 +23,23 @@ require 'chef-vault'
 package 'git'
 
 # a few case-y things based on hostname
-unless node['fqdn'] == 'casa.m.ucla.edu'
+case node['fqdn']
+when 'casa.m.ucla.edu'
+  fqdn = 'casa.m.ucla.edu'
+  app_name = 'prod'
+  app_revision = '1.2.0'
+  rails_env = 'production'
+  uuid = '7f4a4d15-88b6-4cea-bbf6-6ee6e166ee0f'
+  shib_client = 'casa'
+  port = 3000
+when 'staging.m.ucla.edu'
   fqdn = 'casa-staging.m.ucla.edu'
   app_name = 'staging'
   app_revision = 'master'
   rails_env = 'staging'
+  uuid = '2663792f-0ae4-413f-94ef-bbf3fd0d7484'
+  shib_client = 'staging_casa'
+  port = 3001
 end
 
 # install mysql
@@ -96,7 +108,7 @@ template '/etc/nginx/sites-available/casa' do
   action :create
   variables(
     fqdn: fqdn,
-    port: 3001,
+    port: port,
     path: '/var/www/', # not used.
   )
   notifies :reload, 'service[nginx]', :delayed
@@ -114,18 +126,22 @@ rbenv_global '2.2.3'
 rbenv_gem 'bundle'
 
 rails_secrets = ChefVault::Item.load('secrets', 'rails_secret_tokens')
+bridge_secrets = ChefVault::Item.load('secrets', 'oauth2') # gets bridge secret from vault.
 
 # set up casa!
 casa_on_rails app_name do
   revision app_revision
-  port 3001
+  port port
   secret rails_secrets[fqdn]
   db_password db_casa
   deploy_path '/var/casa'
   bundler_path '/usr/local/rbenv/shims'
   rails_env rails_env
-  uuid '2663792f-0ae4-413f-94ef-bbf3fd0d7484'
+  uuid uuid
   contact_name 'Rose Rocchio'
   contact_email 'rrocchio@oit.ucla.edu'
+  shib_client_name shib_client
+  shib_secret bridge_secrets[shib_client]
+  shib_site 'https://onlinepoll.ucla.edu'
   # assumes es is available at localhost
 end
