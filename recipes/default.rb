@@ -24,8 +24,8 @@ package 'git'
 
 # a few case-y things based on hostname
 case node['fqdn']
-when 'casa.m.ucla.edu'
-  fqdn = 'casa.m.ucla.edu'
+when 'apps.ucla.edu'
+  fqdn = 'apps.ucla.edu'
   app_name = 'prod'
   app_revision = '1.2.0'
   rails_env = 'production'
@@ -102,16 +102,16 @@ file "/etc/ssl/private/#{fqdn}.key" do
 end
 
 # add apps.ucla.edu key/cert to casa.m. it has an extra hostname!
-if node['fqdn'] == 'casa.m.ucla.edu'
-  ssl_key_cert = ChefVault::Item.load('ssl', 'apps.ucla.edu')
-  file '/etc/ssl/certs/apps.ucla.edu.crt' do
+if node['fqdn'] == 'apps.ucla.edu'
+  ssl_key_cert = ChefVault::Item.load('ssl', 'casa.m.ucla.edu')
+  file '/etc/ssl/certs/casa.m.ucla.edu.crt' do
     owner 'root'
     group 'root'
     mode '0777'
     content ssl_key_cert['cert']
     notifies :reload, 'service[nginx]', :delayed
   end
-  file '/etc/ssl/private/apps.ucla.edu.key' do
+  file '/etc/ssl/private/casa.m.ucla.edu.key' do
     owner 'root'
     group 'root'
     mode '0600'
