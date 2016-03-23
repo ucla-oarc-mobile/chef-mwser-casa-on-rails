@@ -101,6 +101,25 @@ file "/etc/ssl/private/#{fqdn}.key" do
   notifies :reload, 'service[nginx]', :delayed
 end
 
+# add apps.ucla.edu key/cert to casa.m. it has an extra hostname!
+if node['fqdn'] == 'casa.m.ucla.edu'
+  ssl_key_cert = ChefVault::Item.load('ssl', 'apps.ucla.edu')
+  file '/etc/ssl/certs/apps.ucla.edu.crt' do
+    owner 'root'
+    group 'root'
+    mode '0777'
+    content ssl_key_cert['cert']
+    notifies :reload, 'service[nginx]', :delayed
+  end
+  file '/etc/ssl/private/apps.ucla.edu.key' do
+    owner 'root'
+    group 'root'
+    mode '0600'
+    content ssl_key_cert['key']
+    notifies :reload, 'service[nginx]', :delayed
+  end
+end
+
 # nginx conf
 template '/etc/nginx/sites-available/casa' do
   source 'casa.conf.erb'

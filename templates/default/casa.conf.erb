@@ -32,3 +32,20 @@ server {
   listen 80;
   return 301 https://$host$request_uri;
 }
+
+<% if node[:fqdn] == 'casa.m.ucla.edu' %>
+server {
+  server_name apps.ucla.edu;
+  listen 443;
+  ssl on;
+  ssl_certificate /etc/ssl/certs/apps.ucla.edu.crt;
+  ssl_certificate_key /etc/ssl/private/apps.ucla.edu.key;
+  return 301 https://<%= @fqdn %>$request_uri;  
+}
+
+server {
+  server_name apps.ucla.edu;
+  listen 80;
+  return 301 https://<%= @fqdn %>$request_uri;
+}
+<% end %>
