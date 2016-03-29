@@ -128,7 +128,8 @@ template '/etc/nginx/sites-available/casa' do
   variables(
     fqdn: fqdn,
     port: port,
-    path: '/var/www/', # not used.
+    app_name: app_name,
+    ssl_enabled: true
   )
   notifies :reload, 'service[nginx]', :delayed
 end
