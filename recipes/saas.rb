@@ -103,6 +103,7 @@ casa_instances.each_with_index do |c, i|
     end
     ssl_enabled = true
   rescue ChefVault::Exceptions::KeysNotFound # untested.
+    Chef::Log.info("No SSL certs available for #{fqdn}, continuing without SSL support for this instance")
     ssl_enabled = false
   end
   
