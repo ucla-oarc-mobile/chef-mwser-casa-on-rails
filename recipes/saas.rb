@@ -130,6 +130,7 @@ casa_instances.each_with_index do |c, i|
     db_name @app_name
     db_user @app_name
     db_password @db_pw
+    es_index @app_name
     deploy_path "/var/#{@app_name}"
     bundler_path '/usr/local/rbenv/shims'
     rails_env 'production'
