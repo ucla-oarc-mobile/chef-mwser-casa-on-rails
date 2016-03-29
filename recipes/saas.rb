@@ -70,7 +70,7 @@ casa_instances = [
   { name: 'berkeley', fqdn: 'berkeley.apps.ucla.edu', contact_name: 'Sara Leavitt', contact_email: 'saral@berkeley.edu', uuid: '069624c7-d547-48ea-8dfa-3ffb989efb52' },
   { name: 'demo', fqdn: 'demo.apps.ucla.edu', contact_name: 'Rose Rocchio', contact_email: 'rrocchio@oit.ucla.edu', uuid: '79847ad5-0de1-4bd2-ac74-27c582755b21' },
   { name: 'ucsc', fqdn: 'ucsc.apps.ucla.edu', contact_name: 'Charles McIntyre', contact_email: 'mcintyre@ucsc.edu', uuid: 'fcfac792-acf5-423e-befd-19e8af05c79e' },
-  { name: 'caliper', fqdn: 'caliper.apps.ucla.edu', contact_name: 'Rose Rocchio', contact_email: 'rrocchio@oit.ucla.edu', uuid: '79847ad5-0de1-4bd2-ac74-27c582755b33'}
+  { name: 'caliper', fqdn: 'caliper.apps.ucla.edu', revision: '1.2.0-caliper', contact_name: 'Rose Rocchio', contact_email: 'rrocchio@oit.ucla.edu', uuid: '79847ad5-0de1-4bd2-ac74-27c582755b33'}
 ]
 
 casa_instances.each_with_index do |c, i|
