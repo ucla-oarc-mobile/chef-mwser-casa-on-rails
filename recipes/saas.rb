@@ -59,39 +59,42 @@ directory '/etc/ssl/private' do
   recursive true
 end
 
+rails_secrets = ChefVault::Item.load('secrets', 'rails_secret_tokens')
+
 casa_instances = [
   { name: 'open', fqdn: 'open.apps.ucla.edu', contact_name: 'Joshua Selsky', contact_email: 'jselsky@oit.ucla.edu', uuid: 'da782175-1a9e-46ef-ae44-c088d34606f3' }
 ]
 
 casa_instances.each_with_index do |c, i|
   # a few instance variables
-  @port = 3000 + i
-  @db_pw = db_casa_obj[c.fqdn]
-  @app_name = "casa-#{c.name}"
+  port = 3000 + i
+  fqdn = c[:fqdn]
+  db_pw = db_casa_obj[fqdn]
+  app_name = "casa-#{c[:name]}"
 
   # setup database
-  mysql_database @app_name do
+  mysql_database app_name do
     connection mysql_connection
     action :create
   end
-  mysql_database_user @app_name do
+  mysql_database_user app_name do
     connection mysql_connection
-    password @db_pw
-    database_name @app_name
+    password db_pw
+    database_name app_name
     action [:create,:grant]
   end
   
   # add SSL certs to box (if they exist)
   begin
-    ssl_key_cert = ChefVault::Item.load('ssl', c.fqdn) # gets ssl cert from chef-vault
-    file "/etc/ssl/certs/#{c.fqdn}.crt" do
+    ssl_key_cert = ChefVault::Item.load('ssl', fqdn) # gets ssl cert from chef-vault
+    file "/etc/ssl/certs/#{fqdn}.crt" do
       owner 'root'
       group 'root'
       mode '0777'
       content ssl_key_cert['cert']
       notifies :reload, 'service[nginx]', :delayed
     end
-    file "/etc/ssl/private/#{c.fqdn}.key" do
+    file "/etc/ssl/private/#{fqdn}.key" do
       owner 'root'
       group 'root'
       mode '0600'
@@ -99,44 +102,42 @@ casa_instances.each_with_index do |c, i|
       notifies :reload, 'service[nginx]', :delayed
     end
     ssl_enabled = true
-  rescue ChefVault::ItemNotFound # untested.
+  rescue ChefVault::Exceptions::KeysNotFound # untested.
     ssl_enabled = false
   end
   
   # nginx conf
-  template "/etc/nginx/sites-available/#{@app_name}" do
+  template "/etc/nginx/sites-available/#{app_name}" do
     source 'casa.conf.erb'
     mode '0775'
     action :create
     variables(
-      fqdn: c.fqdn,
-      port: @port,
-      app_name: @app_name,
+      fqdn: fqdn,
+      port: port,
+      app_name: app_name,
       ssl_enabled: ssl_enabled
     )
     notifies :reload, 'service[nginx]', :delayed
   end
-  nginx_site @app_name do
+  nginx_site app_name do
     action :enable
   end
   
-  rails_secrets = ChefVault::Item.load('secrets', 'rails_secret_tokens')
-  
   # set up casa!
-  casa_on_rails c.name do
-    revision c.revision if c.revision
-    port @port
-    secret rails_secrets[c.fqdn]
-    db_name @app_name
-    db_user @app_name
-    db_password @db_pw
-    es_index @app_name
-    deploy_path "/var/#{@app_name}"
+  casa_on_rails c[:name] do
+    revision c[:revision] if c[:revision]
+    port port
+    secret rails_secrets[fqdn]
+    db_name app_name
+    db_user app_name
+    db_password db_pw
+    es_index app_name
+    deploy_path "/var/#{app_name}"
     bundler_path '/usr/local/rbenv/shims'
     rails_env 'production'
-    uuid c.uuid
-    contact_name c.contact_name
-    contact_email c.contact_email
+    uuid c[:uuid]
+    contact_name c[:contact_name]
+    contact_email c[:contact_email]
     # assumes es is available at localhost
   end
 end
