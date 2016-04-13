@@ -64,7 +64,7 @@ caliper_api = ChefVault::Item.load('secrets', 'caliper_api')
 
 casa_instances = [
   { name: 'open', fqdn: 'open.apps.ucla.edu', contact_name: 'Joshua Selsky', contact_email: 'jselsky@oit.ucla.edu', uuid: 'da782175-1a9e-46ef-ae44-c088d34606f3' },
-  { name: 'imsglobal', fqdn: 'imsglobal.apps.ucla.edu', contact_name: 'Joshua Selsky', contact_email: 'jselsky@oit.ucla.edu', uuid: '60b89d1d-acf7-4275-9a0a-f694a2393ab2' },
+  { name: 'imsglobal', fqdn: 'casa.imsglobal.org', contact_name: 'Lisa Mattson', contact_email: 'lmattson@imsglobal.org', uuid: '60b89d1d-acf7-4275-9a0a-f694a2393ab2' },
   { name: 'umbc', fqdn: 'umbc.apps.ucla.edu', contact_name: 'Joshua Selsky', contact_email: 'jselsky@oit.ucla.edu', uuid: '24b72770-bdfa-402b-af47-56bcab72586c' },
   { name: 'ucsd', fqdn: 'ucsd.apps.ucla.edu', contact_name: 'Jeff Henry', contact_email: 'pjhenry@ucsd.edu', uuid: 'ee3e7562-d7ba-4bd8-b9dc-b916babc28d4' },
   { name: 'berkeley', fqdn: 'berkeley.apps.ucla.edu', contact_name: 'Sara Leavitt', contact_email: 'saral@berkeley.edu', uuid: '069624c7-d547-48ea-8dfa-3ffb989efb52' },
