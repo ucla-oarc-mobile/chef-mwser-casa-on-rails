@@ -4,7 +4,7 @@ maintainer_email 'technolengy@gmail.com'
 license 'Apache 2.0'
 description 'Installs/Configures mwser-casa-on-rails'
 long_description 'Installs/Configures mwser-casa-on-rails'
-version '0.2.13'
+version '0.2.14'
 
 depends 'casa-on-rails'
 depends 'mysql'
