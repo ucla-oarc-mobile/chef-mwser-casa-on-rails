@@ -134,7 +134,7 @@ casa_instances.each_with_index do |c, i|
   
   # set up casa!
   casa_on_rails c[:name] do
-    revision c[:revision] if c[:revision]
+    revision 'master'
     port port
     secret rails_secrets[fqdn]
     db_name app_name
