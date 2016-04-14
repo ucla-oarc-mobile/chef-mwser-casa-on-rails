@@ -63,13 +63,13 @@ rails_secrets = ChefVault::Item.load('secrets', 'rails_secret_tokens')
 caliper_api = ChefVault::Item.load('secrets', 'caliper_api')
 
 casa_instances = [
-  { name: 'open', fqdn: 'open.apps.ucla.edu', contact_name: 'Joshua Selsky', contact_email: 'jselsky@oit.ucla.edu', uuid: 'da782175-1a9e-46ef-ae44-c088d34606f3' },
-  { name: 'imsglobal', fqdn: 'casa.imsglobal.org', contact_name: 'Lisa Mattson', contact_email: 'lmattson@imsglobal.org', uuid: '60b89d1d-acf7-4275-9a0a-f694a2393ab2' },
-  { name: 'umbc', fqdn: 'umbc.apps.ucla.edu', contact_name: 'Joshua Selsky', contact_email: 'jselsky@oit.ucla.edu', uuid: '24b72770-bdfa-402b-af47-56bcab72586c' },
-  { name: 'ucsd', fqdn: 'ucsd.apps.ucla.edu', contact_name: 'Jeff Henry', contact_email: 'pjhenry@ucsd.edu', uuid: 'ee3e7562-d7ba-4bd8-b9dc-b916babc28d4' },
-  { name: 'berkeley', fqdn: 'berkeley.apps.ucla.edu', contact_name: 'Sara Leavitt', contact_email: 'saral@berkeley.edu', uuid: '069624c7-d547-48ea-8dfa-3ffb989efb52' },
-  { name: 'demo', fqdn: 'demo.apps.ucla.edu', contact_name: 'Rose Rocchio', contact_email: 'rrocchio@oit.ucla.edu', uuid: '79847ad5-0de1-4bd2-ac74-27c582755b21' },
-  { name: 'ucsc', fqdn: 'ucsc.apps.ucla.edu', contact_name: 'Charles McIntyre', contact_email: 'mcintyre@ucsc.edu', uuid: 'fcfac792-acf5-423e-befd-19e8af05c79e' },
+  { name: 'open', fqdn: 'open.apps.ucla.edu', revision: 'master', contact_name: 'Joshua Selsky', contact_email: 'jselsky@oit.ucla.edu', uuid: 'da782175-1a9e-46ef-ae44-c088d34606f3' },
+  { name: 'imsglobal', fqdn: 'casa.imsglobal.org', revision: 'master', contact_name: 'Lisa Mattson', contact_email: 'lmattson@imsglobal.org', uuid: '60b89d1d-acf7-4275-9a0a-f694a2393ab2' },
+  { name: 'umbc', fqdn: 'umbc.apps.ucla.edu', revision: 'master', contact_name: 'Joshua Selsky', contact_email: 'jselsky@oit.ucla.edu', uuid: '24b72770-bdfa-402b-af47-56bcab72586c' },
+  { name: 'ucsd', fqdn: 'ucsd.apps.ucla.edu', revision: 'master', contact_name: 'Jeff Henry', contact_email: 'pjhenry@ucsd.edu', uuid: 'ee3e7562-d7ba-4bd8-b9dc-b916babc28d4' },
+  { name: 'berkeley', fqdn: 'berkeley.apps.ucla.edu', revision: 'master', contact_name: 'Sara Leavitt', contact_email: 'saral@berkeley.edu', uuid: '069624c7-d547-48ea-8dfa-3ffb989efb52' },
+  { name: 'demo', fqdn: 'demo.apps.ucla.edu', revision: 'master', contact_name: 'Rose Rocchio', contact_email: 'rrocchio@oit.ucla.edu', uuid: '79847ad5-0de1-4bd2-ac74-27c582755b21' },
+  { name: 'ucsc', fqdn: 'ucsc.apps.ucla.edu', revision: 'master', contact_name: 'Charles McIntyre', contact_email: 'mcintyre@ucsc.edu', uuid: 'fcfac792-acf5-423e-befd-19e8af05c79e' },
   { name: 'caliper', fqdn: 'caliper.apps.ucla.edu', revision: '1.2.0-caliper', contact_name: 'Rose Rocchio', contact_email: 'rrocchio@oit.ucla.edu', uuid: '79847ad5-0de1-4bd2-ac74-27c582755b33'}
 ]
 
@@ -134,7 +134,7 @@ casa_instances.each_with_index do |c, i|
   
   # set up casa!
   casa_on_rails c[:name] do
-    revision 'master'
+    revision c[:revision] if c[:revision]
     port port
     secret rails_secrets[fqdn]
     db_name app_name
