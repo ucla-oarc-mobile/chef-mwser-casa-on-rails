@@ -71,7 +71,7 @@ casa_instances = [
   { name: 'demo', fqdn: 'demo.apps.ucla.edu', revision: 'master', contact_name: 'Rose Rocchio', contact_email: 'rrocchio@oit.ucla.edu', uuid: '79847ad5-0de1-4bd2-ac74-27c582755b21' },
   { name: 'ucsc', fqdn: 'ucsc.apps.ucla.edu', revision: '1.2.3', contact_name: 'Charles McIntyre', contact_email: 'mcintyre@ucsc.edu', uuid: 'fcfac792-acf5-423e-befd-19e8af05c79e' },
   { name: 'caliper', fqdn: 'caliper.apps.ucla.edu', revision: '1.2.0-caliper', contact_name: 'Rose Rocchio', contact_email: 'rrocchio@oit.ucla.edu', uuid: '79847ad5-0de1-4bd2-ac74-27c582755b33'}
-  { name: 'ucf', fqdn: 'caliper.apps.ucla.edu', revision: '1.2.3', contact_name: 'Shea Silverman', contact_email: 'shea.silverman@ucf.edu', uuid: 'c8ab0623-1cfb-4c66-a797-eebbe5feef97'}
+  { name: 'ucf', fqdn: 'ucf.apps.ucla.edu', revision: '1.2.3', contact_name: 'Shea Silverman', contact_email: 'shea.silverman@ucf.edu', uuid: 'c8ab0623-1cfb-4c66-a797-eebbe5feef97'}
 ]
 
 casa_instances.each_with_index do |c, i|
