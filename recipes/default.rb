@@ -27,7 +27,7 @@ case node['fqdn']
 when 'apps.ucla.edu'
   fqdn = 'apps.ucla.edu'
   app_name = 'prod'
-  app_revision = '1.2.3'
+  app_revision = '1.2.5'
   rails_env = 'production'
   uuid = '7f4a4d15-88b6-4cea-bbf6-6ee6e166ee0f'
   shib_client = 'casa'
