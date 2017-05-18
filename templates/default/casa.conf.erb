@@ -9,6 +9,7 @@ server {
   <% if @ssl_enabled %>
   listen 443;
   ssl on;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
   ssl_certificate /etc/ssl/certs/<%= @fqdn %>.crt;
   ssl_certificate_key /etc/ssl/private/<%= @fqdn %>.key;
   <% else %>
@@ -43,6 +44,7 @@ server {
   server_name casa.m.ucla.edu;
   listen 443;
   ssl on;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
   ssl_certificate /etc/ssl/certs/casa.m.ucla.edu.crt;
   ssl_certificate_key /etc/ssl/private/casa.m.ucla.edu.key;
   return 301 https://<%= @fqdn %>$request_uri;  

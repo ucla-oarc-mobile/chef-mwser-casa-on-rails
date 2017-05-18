@@ -135,6 +135,22 @@ casa_instances.each_with_index do |c, i|
     action :enable
   end
   
+
+# For using strong DH group to prevent Logjam attack
+execute "openssl dhparam -out /etc/nginx/dhparams.pem 2048"
+#add "ssl_dhparam /etc/nginx/dhparams.pem;" to "/etc/nginx/nginx.conf"
+template '/etc/nginx/nginx.conf' do
+  source 'casa-nginx.conf.erb'
+  mode '0644'
+  action :create
+  variables(
+    fqdn: fqdn,
+    path: '/var/www/', # not used.
+  )
+  notifies :reload, 'service[nginx]', :delayed
+end
+
+
   # set up casa!
   casa_on_rails c[:name] do
     revision c[:revision] if c[:revision]
