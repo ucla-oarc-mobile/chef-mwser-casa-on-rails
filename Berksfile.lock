@@ -42,7 +42,7 @@ GRAPH
     yum (>= 0.0.0)
     yum-epel (>= 0.0.0)
     yum-scl (>= 0.0.0)
-  mwser-casa-on-rails (0.2.48)
+  mwser-casa-on-rails (0.2.49)
     casa-on-rails (>= 0.0.0)
     database (>= 0.0.0)
     mysql (>= 0.0.0)
