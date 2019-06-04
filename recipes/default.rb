@@ -170,6 +170,7 @@ bridge_secrets = ChefVault::Item.load('secrets', 'oauth2') # gets bridge secret 
 
 # set up casa!
 casa_on_rails app_name do
+  fqdn fqdn
   revision app_revision
   port port
   secret rails_secrets[fqdn]
