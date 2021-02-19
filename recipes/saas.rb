@@ -23,11 +23,11 @@ require 'chef-vault'
 package 'git'
 
 # install ruby with rbenv, npm, git
-node.default['rbenv']['rubies'] = ['2.2.3']
+node.default['rbenv']['rubies'] = ['2.4.0']
 include_recipe 'ruby_build'
 include_recipe 'ruby_rbenv::system'
 include_recipe 'nodejs::npm'
-rbenv_global '2.2.3'
+rbenv_global '2.4.0'
 rbenv_gem 'bundle'
 
 # install mysql
@@ -63,8 +63,8 @@ rails_secrets = ChefVault::Item.load('secrets', 'rails_secret_tokens')
 caliper_api = ChefVault::Item.load('secrets', 'caliper_api')
 
 casa_instances = [
-  { name: 'demo', fqdn: 'demo.apps.ucla.edu', revision: '1.5.1', contact_name: 'Rose Rocchio', contact_email: 'rrocchio@oit.ucla.edu', uuid: '79847ad5-0de1-4bd2-ac74-27c582755b21' },
-  { name: 'ccle', fqdn: 'ccle.apps.ucla.edu', revision: '1.5.1', contact_name: 'Rose Rocchio', contact_email: 'rrocchio@oit.ucla.edu', uuid: '058e4b77-d990-49e5-8381-55645374c6c2'}
+  { name: 'demo', fqdn: 'demo.apps.ucla.edu', revision: '1.6.1', contact_name: 'Rose Rocchio', contact_email: 'rrocchio@oit.ucla.edu', uuid: '79847ad5-0de1-4bd2-ac74-27c582755b21' },
+  { name: 'ccle', fqdn: 'ccle.apps.ucla.edu', revision: '1.6.1', contact_name: 'Rose Rocchio', contact_email: 'rrocchio@oit.ucla.edu', uuid: '058e4b77-d990-49e5-8381-55645374c6c2'}
 ]
 
 casa_instances.each_with_index do |c, i|

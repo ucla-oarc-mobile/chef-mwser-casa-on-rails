@@ -27,10 +27,10 @@ case node['fqdn']
 when 'apps.ucla.edu'
   fqdn = 'apps.ucla.edu'
   app_name = 'prod'
-  app_revision = '1.5.2'
+  app_revision = '1.6.1'
   rails_env = 'production'
   uuid = '7f4a4d15-88b6-4cea-bbf6-6ee6e166ee0f'
-  shib_client = 'casa'
+  keycloak_site = 'https://bivrost.oit.ucla.edu'
   port = 3000
 when 'staging.m.ucla.edu'
   fqdn = 'casa-staging.m.ucla.edu'
@@ -38,7 +38,7 @@ when 'staging.m.ucla.edu'
   app_revision = 'master'
   rails_env = 'staging'
   uuid = '2663792f-0ae4-413f-94ef-bbf3fd0d7484'
-  shib_client = 'staging_casa'
+  keycloak_site = 'https://staging.bivrost.oit.ucla.edu'
   port = 3001
 end
 
@@ -158,15 +158,14 @@ end
 
 
 # install ruby with rbenv, npm, git
-node.default['rbenv']['rubies'] = ['2.2.3']
+node.default['rbenv']['rubies'] = ['2.4.0']
 include_recipe 'ruby_build'
 include_recipe 'ruby_rbenv::system'
 include_recipe 'nodejs::npm'
-rbenv_global '2.2.3'
+rbenv_global '2.4.0'
 rbenv_gem 'bundle'
 
 rails_secrets = ChefVault::Item.load('secrets', 'rails_secret_tokens')
-bridge_secrets = ChefVault::Item.load('secrets', 'oauth2') # gets bridge secret from vault.
 
 # set up casa!
 casa_on_rails app_name do
@@ -181,8 +180,6 @@ casa_on_rails app_name do
   uuid uuid
   contact_name 'Rose Rocchio'
   contact_email 'rrocchio@oit.ucla.edu'
-  shib_client_name shib_client
-  shib_secret bridge_secrets[shib_client]
-  shib_site 'https://onlinepoll.ucla.edu'
+  keycloak_site keycloak_site
   # assumes es is available at localhost
 end
